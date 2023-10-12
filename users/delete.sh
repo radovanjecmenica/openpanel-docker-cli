@@ -84,7 +84,9 @@ remove_docker_container_and_volume() {
     docker stop "$username"
     docker rm "$username"
     docker volume rm "mysql-$username"
+    umount /home/$username
     rm -rf /home/$username
+    rm -rf /home/storage_file_$username
 }
 
 # Delete all users domains vhosts files from Nginx
@@ -188,10 +190,6 @@ delete_vhosts_files
 remove_docker_container_and_volume
 
 delete_user_from_database
-
-umount /home/$username
-rm -rf /home/$username
-rm -rf /home/storage_file_$username
 
 
 
